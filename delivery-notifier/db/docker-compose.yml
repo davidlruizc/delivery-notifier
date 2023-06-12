@@ -25,3 +25,10 @@ services:
       - '16543:80'
     depends_on:
       - postgres
+  rabbitmq:
+    container_name: dmq-rabbitmq
+    hostname: rabbit
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'

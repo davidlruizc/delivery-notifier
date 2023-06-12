@@ -4,16 +4,18 @@ namespace Core.Order.Domain.Model
 {
     public class Order : BaseEntity
     {
-        public Guid ProductId { get; set; }
+        public Guid RestaurantId { get; set; }
         public SystemProvider SystemProvider { get; set; }
         public Guid UserId { get; set; }
+        public IList<Detail> Details { get; set; }
 
-        private Order(Guid id, Guid productId, SystemProvider systemProvider, Guid userId)
+        private Order(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details)
         {
             Id = id;
-            ProductId = productId;
+            RestaurantId = restaurantId;
             SystemProvider = systemProvider;
             UserId = userId;
+            Details = details;
         }
 
         internal void Initialize()
@@ -21,9 +23,9 @@ namespace Core.Order.Domain.Model
             InitializeBase();
         }
 
-        public static Order Of(Guid id, Guid productId, SystemProvider systemProvider, Guid userId)
+        public static Order Of(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details)
         {
-            return new Order(id, productId, systemProvider, userId);
+            return new Order(id, restaurantId, systemProvider, userId, details);
         }
     }
 }

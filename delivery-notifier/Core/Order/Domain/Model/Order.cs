@@ -5,9 +5,9 @@ namespace Core.Order.Domain.Model
     public class Order : BaseEntity
     {
         public Guid ProductId { get; set; }
-        public int SystemProvider { get; set; }
+        public SystemProvider SystemProvider { get; set; }
 
-        private Order(Guid id, Guid productId, int systemProvider)
+        private Order(Guid id, Guid productId, SystemProvider systemProvider)
         {
             Id = id;
             ProductId = productId;
@@ -19,7 +19,7 @@ namespace Core.Order.Domain.Model
             InitializeBase();
         }
 
-        public static Order Of(Guid id, Guid productId, int systemProvider)
+        public static Order Of(Guid id, Guid productId, SystemProvider systemProvider)
         {
             return new Order(id, productId, systemProvider);
         }

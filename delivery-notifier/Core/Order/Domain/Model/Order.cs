@@ -6,12 +6,14 @@ namespace Core.Order.Domain.Model
     {
         public Guid ProductId { get; set; }
         public SystemProvider SystemProvider { get; set; }
+        public Guid UserId { get; set; }
 
-        private Order(Guid id, Guid productId, SystemProvider systemProvider)
+        private Order(Guid id, Guid productId, SystemProvider systemProvider, Guid userId)
         {
             Id = id;
             ProductId = productId;
             SystemProvider = systemProvider;
+            UserId = userId;
         }
 
         internal void Initialize()
@@ -19,9 +21,9 @@ namespace Core.Order.Domain.Model
             InitializeBase();
         }
 
-        public static Order Of(Guid id, Guid productId, SystemProvider systemProvider)
+        public static Order Of(Guid id, Guid productId, SystemProvider systemProvider, Guid userId)
         {
-            return new Order(id, productId, systemProvider);
+            return new Order(id, productId, systemProvider, userId);
         }
     }
 }

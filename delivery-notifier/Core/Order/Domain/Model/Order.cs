@@ -11,8 +11,9 @@ namespace Core.Order.Domain.Model
         public Guid UserId { get; set; }
         public IList<Detail> Details { get; set; }
         public decimal Total { get; set; }
+        public OrderStatus Status { get; set; }
 
-        private Order(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, decimal total)
+        private Order(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, decimal total, OrderStatus status)
         {
             Id = id;
             RestaurantId = restaurantId;
@@ -20,6 +21,7 @@ namespace Core.Order.Domain.Model
             UserId = userId;
             Details = details;
             Total = total;
+            Status = status;
         }
 
         internal void Initialize()
@@ -27,10 +29,10 @@ namespace Core.Order.Domain.Model
             InitializeBase();
         }
 
-        public static Order Of(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, IProductRepository productRepository)
+        public static Order Of(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, IProductRepository productRepository, OrderStatus orderStatus)
         {
             var totalCalculated = CalculateTotal(details, productRepository);
-            return new Order(id, restaurantId, systemProvider, userId, details, totalCalculated);
+            return new Order(id, restaurantId, systemProvider, userId, details, totalCalculated, orderStatus);
         }
 
         public static decimal CalculateTotal(IList<Detail> details, IProductRepository productRepository)

@@ -9,9 +9,10 @@ namespace Core.Order.App
         private readonly IOrderRepository orderRepository;
         private readonly IProductRepository productRepository;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrderService(IOrderRepository orderRepository, IProductRepository productRepository)
         {
             this.orderRepository = orderRepository;
+            this.productRepository = productRepository;
         }
 
         public OrderDTO CreateOrder(CreateOrderDTO dto)

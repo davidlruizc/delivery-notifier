@@ -1,5 +1,6 @@
 ﻿using Core.Product.Domain.Model;
 using Core.Product.Domain.Services;
+using Utilities;
 using Utilities.Domain;
 
 namespace Core.Order.Domain.Model
@@ -33,6 +34,8 @@ namespace Core.Order.Domain.Model
 
         public static Order Of(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, IProductRepository productRepository, OrderStatus orderStatus, double estimatedTime)
         {
+            Guards.Require(estimatedTime > 0, "Estimated time must be greater than 0");
+            Guards.Require(estimatedTime < 120, "Estimated time must be less than 120");
             var totalCalculated = CalculateTotal(details, productRepository);
             var calculateEstimatedTime = DateTime.Now.AddMinutes(estimatedTime).ToUniversalTime();
             return new Order(id, restaurantId, systemProvider, userId, details, totalCalculated, orderStatus, calculateEstimatedTime);

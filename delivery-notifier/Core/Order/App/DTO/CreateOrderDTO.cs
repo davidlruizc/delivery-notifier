@@ -10,6 +10,7 @@ namespace Core.Order.App.DTO
         public Guid UserId { get; set; }
         public Guid RestaurantId { get; set; }
         public OrderStatus Status { get; set; }
+        public double EstimatedTime { get; set; }
 
         public Domain.Model.Order ToModel(IProductRepository productRespository)
         {
@@ -20,7 +21,7 @@ namespace Core.Order.App.DTO
                 var product = productRespository.FindOrFail<Product.Domain.Model.Product>(productId);
                 details.Add(Detail.Of(Guid.NewGuid(), product.Id, orderId));
             }
-            return Domain.Model.Order.Of(orderId, RestaurantId, SystemProvider, UserId, details, productRespository, Status);
+            return Domain.Model.Order.Of(orderId, RestaurantId, SystemProvider, UserId, details, productRespository, Status, EstimatedTime);
         }
     }
 }

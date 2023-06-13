@@ -9,5 +9,6 @@ namespace Core.Order.Domain.ReadModels
         public DateTime Created { get; set; }
         public IList<DetailReadModel> Details { get; set; }
         public SystemProvider SystemProvider { get; set; }
+        public DateTime EstimatedTime { get; set; }
     }
 }

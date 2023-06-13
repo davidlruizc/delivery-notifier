@@ -28,5 +28,14 @@ namespace Core.Order.App
             orderRepository.CommitChanges();
             return OrderDTO.Of(orderRepository.GetOrder(model.Id));
         }
+
+        public OrderDTO EditStatusOrder(EditStatusOrderDTO dto)
+        {
+            var existent = orderRepository.FindOrFail<Domain.Model.Order>(dto.OrderId);
+            existent.Status = dto.Status;
+            orderRepository.Save(existent);
+            orderRepository.CommitChanges();
+            return OrderDTO.Of(orderRepository.GetOrder(existent.Id));
+        }
     }
 }

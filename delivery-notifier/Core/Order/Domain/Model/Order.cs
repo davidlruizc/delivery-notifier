@@ -12,8 +12,9 @@ namespace Core.Order.Domain.Model
         public IList<Detail> Details { get; set; }
         public decimal Total { get; set; }
         public OrderStatus Status { get; set; }
+        public DateTime EstimatedTime { get; set; }
 
-        private Order(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, decimal total, OrderStatus status)
+        private Order(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, decimal total, OrderStatus status, DateTime estimatedTime)
         {
             Id = id;
             RestaurantId = restaurantId;
@@ -22,6 +23,7 @@ namespace Core.Order.Domain.Model
             Details = details;
             Total = total;
             Status = status;
+            EstimatedTime = estimatedTime;
         }
 
         internal void Initialize()
@@ -29,10 +31,11 @@ namespace Core.Order.Domain.Model
             InitializeBase();
         }
 
-        public static Order Of(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, IProductRepository productRepository, OrderStatus orderStatus)
+        public static Order Of(Guid id, Guid restaurantId, SystemProvider systemProvider, Guid userId, IList<Detail> details, IProductRepository productRepository, OrderStatus orderStatus, double estimatedTime)
         {
             var totalCalculated = CalculateTotal(details, productRepository);
-            return new Order(id, restaurantId, systemProvider, userId, details, totalCalculated, orderStatus);
+            var calculateEstimatedTime = DateTime.Now.AddMinutes(estimatedTime).ToUniversalTime();
+            return new Order(id, restaurantId, systemProvider, userId, details, totalCalculated, orderStatus, calculateEstimatedTime);
         }
 
         public static decimal CalculateTotal(IList<Detail> details, IProductRepository productRepository)

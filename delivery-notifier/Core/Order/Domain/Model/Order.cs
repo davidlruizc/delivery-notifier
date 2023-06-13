@@ -41,14 +41,14 @@ namespace Core.Order.Domain.Model
             return new Order(id, restaurantId, systemProvider, userId, details, totalCalculated, orderStatus, calculateEstimatedTime);
         }
 
-        public static decimal CalculateTotal(IList<Detail> details, IProductRepository productRepository)
+        private static decimal CalculateTotal(IList<Detail> details, IProductRepository productRepository)
         {
             var productIds = details.GroupBy(x => x.ProductId).Select(x => x.First().ProductId).ToList();
             var products = productRepository.GetProductsInList(productIds);
             return NetTotal(products);
         }
 
-        public static decimal NetTotal(IList<Product.Domain.Model.Product> products)
+        private static decimal NetTotal(IList<Product.Domain.Model.Product> products)
         {
             decimal total = 0;
             total = products.Sum(x => x.Price);

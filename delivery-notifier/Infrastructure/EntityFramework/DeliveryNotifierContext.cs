@@ -2,6 +2,7 @@
 using Core.Product.Domain.Model;
 using Core.Restaurant.Domain.Model;
 using Core.Users.Domain.Model;
+using Infrastructure.EntityFramework.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EntityFramework
@@ -19,7 +20,10 @@ namespace Infrastructure.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.ApplyConfiguration(new DetailsConfiguration());
+            modelBuilder.ApplyConfiguration(new OrdersConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new RestaurantConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

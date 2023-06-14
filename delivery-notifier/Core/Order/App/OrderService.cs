@@ -1,6 +1,7 @@
 ﻿using Core.Order.App.DTO;
 using Core.Order.Domain.Services;
 using Core.Product.Domain.Services;
+using Utilities;
 
 namespace Core.Order.App
 {
@@ -19,6 +20,8 @@ namespace Core.Order.App
         {
             var model = dto.ToModel(productRepository);
             model.Initialize();
+            var findOrderCreated = orderRepository.GetCurrentOrderByUserAndRestaurant(model.RestaurantId, model.UserId);
+            Guards.Require(findOrderCreated, "You already have an order placed.");
             orderRepository.Save(model);
             foreach (var detail in model.Details)
             {

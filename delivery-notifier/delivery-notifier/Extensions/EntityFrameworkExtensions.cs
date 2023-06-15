@@ -8,7 +8,9 @@ namespace delivery_notifier.Extensions
         public static void AddEntityFrameworkServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<DeliveryNotifierContext>(options =>
-                           options.UseNpgsql(configuration.GetConnectionString("DbConnection")));
+            {
+                options.UseNpgsql(configuration.GetConnectionString("DbConnection"));
+            });
         }
     }
 }

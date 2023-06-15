@@ -43,9 +43,14 @@ namespace Core.Order.Domain.Model
 
         private static decimal CalculateTotal(IList<Detail> details, IProductRepository productRepository)
         {
-            var productIds = details.GroupBy(x => x.ProductId).Select(x => x.First().ProductId).ToList();
+            var productIds = details.Select(x => x.ProductId).ToList();
             var products = productRepository.GetProductsInList(productIds);
-            return NetTotal(products);
+            var productList = new List<Product.Domain.Model.Product>();
+            foreach(var productId in productIds)
+            {
+                productList.Add(products.First(x => x.Id == productId));
+            }
+            return NetTotal(productList);
         }
 
         private static decimal NetTotal(IList<Product.Domain.Model.Product> products)
@@ -54,5 +59,7 @@ namespace Core.Order.Domain.Model
             total = products.Sum(x => x.Price);
             return total;
         }
+
+        protected Order() { }
     }
 }

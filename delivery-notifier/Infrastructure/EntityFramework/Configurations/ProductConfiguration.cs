@@ -20,7 +20,7 @@ namespace Infrastructure.EntityFramework.Configurations
                 Name = "Cheese Burger",
                 Image = "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=999&q=80",
                 Price = 10.99m,
-                Created = new DateTime(2023, 3, 28),
+                Created = new DateTime(2023, 3, 28).ToUniversalTime(),
             },
             new Product
             {
@@ -28,7 +28,7 @@ namespace Infrastructure.EntityFramework.Configurations
                 Name = "Hot Dog",
                 Image = "https://images.unsplash.com/photo-1599599810694-b5b37304c041?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=627&q=80",
                 Price = 5.99m,
-                Created = new DateTime(2023, 3, 28),
+                Created = new DateTime(2023, 3, 28).ToUniversalTime(),
             });
         }
     }

@@ -16,6 +16,7 @@ namespace delivery_notifier
             builder.Services.AddEntityFrameworkServices(builder.Configuration);
 
             builder.Services.AddOrderServices();
+            builder.Services.AddProductServices();
 
             var app = builder.Build();
 

@@ -21,7 +21,7 @@ namespace Core.Order.App
             var model = dto.ToModel(productRepository);
             model.Initialize();
             var findOrderCreated = orderRepository.GetCurrentOrderByUserAndRestaurant(model.RestaurantId, model.UserId);
-            Guards.Require(findOrderCreated, "You already have an order placed.");
+            Guards.Require(!findOrderCreated, "You already have an order placed.");
             orderRepository.Save(model);
             foreach (var detail in model.Details)
             {

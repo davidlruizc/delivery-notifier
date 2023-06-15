@@ -24,6 +24,7 @@ namespace Infrastructure.EntityFramework
             modelBuilder.ApplyConfiguration(new OrdersConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new RestaurantConfiguration());
+            modelBuilder.ApplyConfiguration(new UsersConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
